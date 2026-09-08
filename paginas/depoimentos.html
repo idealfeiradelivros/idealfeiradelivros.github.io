@@ -101,5 +101,30 @@
       <div class="depo-autor">Ana Paula Oliveira</div>
       <div class="depo-escola">Bibliotecária - Instituto Educacional Horizonte</div>
     </div>
-    <div class="depoimento-card">
-     
+  </div>
+
+  <script>
+    function aplicarTemaEscuro() {
+      try {
+        if (window.parent && window.parent.document.body.classList.contains('dark-mode')) {
+          document.body.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+        }
+      } catch (e) {}
+    }
+
+    aplicarTemaEscuro();
+
+    if (window.parent && window.parent.document.body) {
+      try {
+        const observer = new MutationObserver(aplicarTemaEscuro);
+        observer.observe(window.parent.document.body, { 
+          attributes: true, 
+          attributeFilter: ['class'] 
+        });
+      } catch (e) {}
+    }
+  </script>
+</body>
+</html>
