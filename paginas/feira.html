@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Como Funciona a Feira de Livros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset e Layout Principal ocupando 100% do container */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+      background-color: transparent;
+    }
+
+    .feira-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 24px;
+      gap: 16px;
+      box-sizing: border-box;
+    }
+
+    /* Cabeçalho */
+    .header-section {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .main-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #0b3c5d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .main-title span {
+      color: #d4af37;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #5A6A85;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* Painel de Conteúdo (Grelha 2 Colunas Ocupando Altura Total) */
+    .steps-container {
+      flex: 1;
+      display: flex;
+      gap: 20px;
+      min-height: 0; /* Impede overflow flexbox */
+    }
+
+    /* Coluna Esquerda: Lista de Etapas */
+    .steps-nav {
+      flex: 0 0 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .step-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px;
+      background: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+    }
+
+    .step-btn:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+      transform: translateX(4px);
+    }
+
+    .step-btn.active {
+      border-color: #D4AF37;
+      background: #FFFDF5;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.15);
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 50%;
+      background: #0B3C5D;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      transition: background 0.25s ease;
+    }
+
+    .step-btn.active .step-number {
+      background: linear-gradient(135deg, #d4af37, #f0d060);
+      color: #000;
+    }
+
+    .step-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0B3C5D;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .step-subtitle {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .step-icon {
+      font-size: 18px;
+    }
+
+    /* Coluna Direita: Cartão de Detalhes */
+    .step-content-area {
+      flex: 1;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .card-panel {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+    }
+
+    .card-panel.active {
+      display: flex;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #F1F5F9;
+      margin-bottom: 16px;
+    }
+
+    .panel-header h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0B3C5D;
+    }
+
+    .panel-header span {
+      color: #D4AF37;
+    }
+
+    .panel-body {
+      flex: 1;
+    }
+
+    .panel-body p {
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 12px;
+    }
+
+    .item-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .item-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    .item-list li strong {
+      color: #0B3C5D;
+    }
+
+    .bullet-icon {
+      color: #D4AF37;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    /* Suporte a Dark Mode Automático */
+    body.dark-mode {
+      background-color: #121212;
+      color: #E2E8F0;
+    }
+    body.dark-mode .main-title { color: #FFFFFF; }
+    body.dark-mode .subtitle { color: #94A3B8; }
+    body.dark-mode .step-btn { background: #1E293B; border-color: #334155; }
+    body.dark-mode .step-btn:hover { background: #334155; }
+    body.dark-mode .step-btn.active { background: #1E293B; border-color: #D4AF37; }
+    body.dark-mode .step-title { color: #F8FAFC; }
+    body.dark-mode .step-subtitle { color: #94A3B8; }
+    body.dark-mode .step-content-area { background: #1E293B; border-color: #334155; }
+    body.dark-mode .panel-header h2 { color: #FFFFFF; }
+    body.dark-mode .panel-header { border-bottom-color: #334155; }
+    body.dark-mode .panel-body p { color: #F1F5F9; }
+    body.dark-mode .item-list li { color: #CBD5E1; }
+    body.dark-mode .item-list li strong { color: #38BDF8; }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .steps-container { flex-direction: column; }
+      .steps-nav { flex: 0 0 auto; flex-direction: row; flex-wrap: wrap; }
+      .step-btn { flex: 1 1 calc(50% - 6px); padding: 10px; }
+      .step-subtitle { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="feira-wrapper">
+    <!-- Cabeçalho -->
+    <header class="header-section">
+      <h1 class="main-title">📚 <span>Como Funciona</span> a Feira de Livros</h1>
+      <p class="subtitle">Do agendamento ao encerramento — tudo planejado para encantar sua escola!</p>
+    </header>
+
+    <!-- Estrutura Principal -->
+    <main class="steps-container">
+      
+      <!-- Navegação Lateral (Abas) -->
+      <nav class="steps-nav" role="tablist">
+        <button class="step-btn active" onclick="setStep(0)" role="tab" aria-selected="true">
+          <span class="step-number">1</span>
+          <span class="step-info">
+            <div class="step-title">Agendamento</div>
+            <div class="step-subtitle">Reserva da data ideal</div>
+          </span>
+          <span class="step-icon">📅</span>
+        </button>
+
+        <button class="step-btn" onclick="setStep(1)" role="tab" aria-selected="false">
+          <span class="step-number">2</span>
+          <span class="step-info">
+            <div class="step-title">Planejamento</div>
+            <div class="step-subtitle">Curadoria e divulgação</div>
+          </span>
+          <span class="step-icon">📋</span>
+        </button>
+
+        <button class="step-btn" onclick="setStep(2)" role="tab" aria-selected="false">
+          <span class="step-number">3</span>
+          <span class="step-info">
+            <div class="step-title">Montagem</div>
+            <div class="step-subtitle">Estrutura organizada</div>
+          </span>
+          <span class="step-icon">🔧</span>
+        </button>
+
+        <button class="step-btn" onclick="setStep(3)" role="tab" aria-selected="false">
+          <span class="step-number">4</span>
+          <span class="step-info">
+            <div class="step-title">Evento</div>
+            <div class="step-subtitle">Encantamento de alunos</div>
+          </span>
+          <span class="step-icon">🎉</span>
+        </button>
+
+        <button class="step-btn" onclick="setStep(4)" role="tab" aria-selected="false">
+          <span class="step-number">5</span>
+          <span class="step-info">
+            <div class="step-title">Encerramento</div>
+            <div class="step-subtitle">Desmontagem e suporte</div>
+          </span>
+          <span class="step-icon">📦</span>
+        </button>
+      </nav>
+
+      <!-- Exibição do Conteúdo -->
+      <section class="step-content-area">
+        
+        <!-- Etapa 1 -->
+        <article class="card-panel active">
+          <header class="panel-header">
+            <h2>📅 <span>1. Agendamento</span></h2>
+          </header>
+          <div class="panel-body">
+            <p>Como funciona:</p>
+            <ul class="item-list">
+              <li><span class="bullet-icon">✦</span> <div><strong>Contato inicial:</strong> A escola entra em contato conosco através dos nossos canais (WhatsApp, Instagram ou formulário no site).</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Escolha da data:</strong> A escola seleciona uma data disponível em nosso calendário.</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Confirmação:</strong> Nossa equipe entra em contato para confirmar o agendamento e alinhar todos os detalhes iniciais.</div></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Etapa 2 -->
+        <article class="card-panel">
+          <header class="panel-header">
+            <h2>📋 <span>2. Planejamento</span></h2>
+          </header>
+          <div class="panel-body">
+            <p>Como funciona:</p>
+            <ul class="item-list">
+              <li><span class="bullet-icon">✦</span> <div><strong>Curadoria de livros:</strong> Nossa equipe seleciona um acervo diversificado de livros infantojuvenis de diversas editoras parceiras.</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Divulgação personalizada:</strong> Criamos cartazes e comunicados digitais para que a escola envolva alunos e famílias antes do evento.</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Alinhamento final:</strong> Alinhamos os detalhes logísticos para garantir a execução perfeita.</div></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Etapa 3 -->
+        <article class="card-panel">
+          <header class="panel-header">
+            <h2>🔧 <span>3. Montagem</span></h2>
+          </header>
+          <div class="panel-body">
+            <p>Como funciona:</p>
+            <ul class="item-list">
+              <li><span class="bullet-icon">✦</span> <div><strong>Chegada e instalação:</strong> Nossa equipe instala toda a estrutura necessária (estantes, expositores e acervo).</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Ambiente acolhedor:</strong> Criamos um espaço colorido e convidativo para instigar a curiosidade dos alunos.</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Agilidade:</strong> A montagem é realizada de maneira rápida, sem interferir na rotina escolar.</div></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Etapa 4 -->
+        <article class="card-panel">
+          <header class="panel-header">
+            <h2>🎉 <span>4. Evento</span></h2>
+          </header>
+          <div class="panel-body">
+            <p>Como funciona:</p>
+            <ul class="item-list">
+              <li><span class="bullet-icon">✦</span> <div><strong>Feira de livros:</strong> Alunos e educadores exploram o acervo e interagem diretamente com os livros.</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Momentos especiais:</strong> Atividades lúdicas e contação de histórias enriquecem a experiência.</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Aproximação:</strong> Fortalece a relação da comunidade escolar com o hábito da leitura.</div></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Etapa 5 -->
+        <article class="card-panel">
+          <header class="panel-header">
+            <h2>📦 <span>5. Encerramento</span></h2>
+          </header>
+          <div class="panel-body">
+            <p>Como funciona:</p>
+            <ul class="item-list">
+              <li><span class="bullet-icon">✦</span> <div><strong>Desmontagem:</strong> Realizamos a desmontagem e deixamos o espaço da escola exatamente como o encontramos.</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Prestação de contas:</strong> Entregamos um resumo com a participação e balanço do evento.</div></li>
+              <li><span class="bullet-icon">✦</span> <div><strong>Suporte contínuo:</strong> Colhemos feedbacks para futuras edições.</div></li>
+            </ul>
+          </div>
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Troca de abas funcional
+    function setStep(index) {
+      const buttons = document.querySelectorAll('.step-btn');
+      const panels = document.querySelectorAll('.card-panel');
+
+      buttons.forEach((btn, i) => {
+        const isActive = i === index;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive);
+      });
+
+      panels.forEach((panel, i) => {
+        panel.classList.toggle('active', i === index);
+      });
+    }
+
+    // Sincronização automática com Tema Escuro caso a página pai utilize dark mode
+    function syncDarkMode() {
+      try {
+        if (window.parent && window.parent.document.body.classList.contains('dark-mode')) {
+          document.body.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+        }
+      } catch (e) {
+        // Trata potenciais restrições de cross-origin caso existam
+      }
+    }
+
+    syncDarkMode();
+    if (window.parent) {
+      try {
+        const observer = new MutationObserver(syncDarkMode);
+        observer.observe(window.parent.document.body, { attributes: true, attributeFilter: ['class'] });
+      } catch (e) {}
+    }
+  </script>
+
+</body>
+</html>

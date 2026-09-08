@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Depoimentos - IDEAL Feira de Livros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+      padding: 20px 24px;
+      overflow-y: auto;
+      height: 100%;
+      transition: background 0.4s;
+    }
+    body.dark-mode { background: #1e1e1e; }
+
+    .section-title {
+      font-size: 20px; font-weight: 800; color: #0b3c5d;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+      transition: color 0.4s;
+    }
+    body.dark-mode .section-title { color: #f0f0f0; }
+    .section-title span { color: #d4af37; }
+
+    p {
+      font-size: 14px; color: #4a5568; line-height: 1.8;
+      margin-bottom: 14px; transition: color 0.4s;
+    }
+    body.dark-mode p { color: #b0b0b0; }
+
+    .depoimentos-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;
+    }
+    .depoimento-card {
+      background: #f8fafc; border-radius: 10px; padding: 14px 18px;
+      border-left: 4px solid #d4af37; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: background 0.4s;
+    }
+    body.dark-mode .depoimento-card { background: #2a2a2a; }
+    .depoimento-card .depo-estrelas {
+      color: #d4af37; font-size: 14px; letter-spacing: 2px; margin-bottom: 4px;
+    }
+    .depoimento-card .depo-texto {
+      font-size: 13px; color: #2d3748; font-style: italic; line-height: 1.5;
+      transition: color 0.4s;
+    }
+    body.dark-mode .depoimento-card .depo-texto { color: #e0e0e0; }
+    .depoimento-card .depo-texto::before {
+      content: '"'; color: #d4af37; font-size: 18px; font-weight: 900;
+    }
+    .depoimento-card .depo-texto::after {
+      content: '"'; color: #d4af37; font-size: 18px; font-weight: 900;
+    }
+    .depoimento-card .depo-autor {
+      font-size: 13px; font-weight: 700; color: #0b3c5d; margin-top: 6px;
+      transition: color 0.4s;
+    }
+    body.dark-mode .depoimento-card .depo-autor { color: #d4af37; }
+    .depoimento-card .depo-escola {
+      font-size: 11px; color: #718096; transition: color 0.4s;
+    }
+    body.dark-mode .depoimento-card .depo-escola { color: #a0a0a0; }
+
+    @media (max-width: 768px) {
+      body { padding: 12px 14px; }
+      .depoimentos-grid { grid-template-columns: 1fr; gap: 12px; }
+      .section-title { font-size: 17px; }
+    }
+    @media (max-width: 480px) {
+      .section-title { font-size: 15px; }
+      .depoimento-card .depo-texto { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <h2 class="section-title">💬 <span>Depoimentos</span> de Escolas</h2>
+
+  <p>
+    Veja o que as escolas que já realizaram a IDEAL Feira de Livros estão dizendo:
+  </p>
+
+  <div class="depoimentos-grid">
+    <div class="depoimento-card">
+      <div class="depo-estrelas">★★★★★</div>
+      <div class="depo-texto">A feira foi um sucesso! As crianças ficaram encantadas e os pais elogiaram muito a organização. Superou nossas expectativas.</div>
+      <div class="depo-autor">Maria Silva</div>
+      <div class="depo-escola">Coordenadora Pedagógica - Colégio Alpha</div>
+    </div>
+    <div class="depoimento-card">
+      <div class="depo-estrelas">★★★★★</div>
+      <div class="depo-texto">Atendimento impecável e um acervo maravilhoso. Nossos alunos não queriam ir embora! Já agendamos a próxima edição.</div>
+      <div class="depo-autor">Carlos Mendes</div>
+      <div class="depo-escola">Diretor - Escola Saber Viver</div>
+    </div>
+    <div class="depoimento-card">
+      <div class="depo-estrelas">★★★★★</div>
+      <div class="depo-texto">Profissionais muito dedicados e atenciosos. A montagem é linda e o incentivo à leitura é visível em toda a comunidade escolar.</div>
+      <div class="depo-autor">Ana Paula Oliveira</div>
+      <div class="depo-escola">Bibliotecária - Instituto Educacional Horizonte</div>
+    </div>
+    <div class="depoimento-card">
+     

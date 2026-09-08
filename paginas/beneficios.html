@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benefícios - IDEAL Feira de Livros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+      padding: 20px 24px;
+      overflow-y: auto;
+      height: 100%;
+      transition: background 0.4s;
+    }
+    body.dark-mode { background: #1e1e1e; }
+
+    .section-title {
+      font-size: 20px; font-weight: 800; color: #0b3c5d;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+      transition: color 0.4s;
+    }
+    body.dark-mode .section-title { color: #f0f0f0; }
+    .section-title span { color: #d4af37; }
+
+    p {
+      font-size: 14px; color: #4a5568; line-height: 1.8;
+      margin-bottom: 14px; transition: color 0.4s;
+    }
+    body.dark-mode p { color: #b0b0b0; }
+
+    .grid-2col {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;
+    }
+    .grid-3col {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 12px 0;
+    }
+    .card {
+      background: #f8fafc; border-radius: 10px; padding: 14px 18px;
+      border-left: 4px solid #d4af37; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: background 0.4s;
+    }
+    body.dark-mode .card { background: #2a2a2a; }
+    .card h3 {
+      font-size: 14px; font-weight: 700; color: #0b3c5d;
+      margin-bottom: 6px; text-transform: uppercase;
+      transition: color 0.4s;
+    }
+    body.dark-mode .card h3 { color: #f0f0f0; }
+    .card ul { list-style: none; padding: 0; }
+    .card ul li {
+      font-size: 12px; color: #2d3748; padding: 2px 0;
+      display: flex; align-items: center; gap: 8px;
+      transition: color 0.4s;
+    }
+    body.dark-mode .card ul li { color: #d0d0d0; }
+    .card ul li::before { content: "✦"; color: #d4af37; font-weight: bold; }
+
+    @media (max-width: 768px) {
+      body { padding: 12px 14px; }
+      .grid-2col, .grid-3col { grid-template-columns: 1fr; gap: 10px; }
+      .section-title { font-size: 17px; }
+      p { font-size: 13px; }
+    }
+    @media (max-width: 480px) {
+      .section-title { font-size: 15px; }
+      p { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <h2 class="section-title">📖 <span>Benefícios</span> para sua Escola</h2>
+
+  <p>
+    A IDEAL Feira de Livros oferece uma série de vantagens para escolas, alunos e famílias. Veja abaixo todos os benefícios:
+  </p>
+
+  <h2 class="section-title">🏫 <span>Para a Escola</span></h2>
+  <div class="grid-2col">
+    <div class="card">
+      <h3>✅ Vantagens</h3>
+      <ul>
+        <li>Sem custo para a instituição</li>
+        <li>Incentivo à leitura</li>
+        <li>Participação das famílias</li>
+        <li>Diversas editoras parceiras</li>
+        <li>Atendimento personalizado</li>
+        <li>Organização completa</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>⭐ Diferenciais</h3>
+      <ul>
+        <li>Desde 1997</li>
+        <li>Experiência consolidada</li>
+        <li>Atendimento personalizado</li>
+        <li>Acervo diversificado</li>
+        <li>Montagem e desmontagem inclusas</li>
+        <li>Segurança e organização</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title">👨‍👩‍👧‍👦 <span>Para Alunos e Famílias</span></h2>
+  <div class="grid-3col">
+    <div class="card">
+      <h3>📚 Leitura</h3>
+      <ul>
+        <li>Acesso a livros diversos</li>
+        <li>Incentivo ao hábito da leitura</li>
+        <li>Descoberta de novos títulos</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🎉 Experiência</h3>
+      <ul>
+        <li>Ambiente encantador</li>
+        <li>Momento com a família</li>
+        <li>Memórias afetivas</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>💛 Aprendizado</h3>
+      <ul>
+        <li>Estímulo à criatividade</li>
+        <li>Desenvolvimento cognitivo</li>
+        <li>Ampliação do repertório</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    if (window.parent && window.parent.document.body.classList.contains('dark-mode')) {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
+</body>
+</html>
