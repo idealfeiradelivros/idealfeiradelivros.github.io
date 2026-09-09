@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mensagem enviada - Ideal Feira de Livros</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- 🔽 ADICIONE ESTE SCRIPT 🔽 -->
+  <script>
+    // Sai do iframe se estiver dentro de um
+    if (window.top !== window.self) {
+      window.top.location = window.self.location;
+    }
+  </script>
+  
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -80,7 +89,7 @@
     <p style="font-size: 13px; color: #a0aec0; margin-top: 16px;">
       Ideal Feira de Livros • Desde 1997
     </p>
-    <a href="index.html" class="btn">Voltar ao site</a>
+    <a href="https://idealfeiradelivros.github.io/" class="btn">Voltar ao site</a>
   </div>
 </body>
 </html>
