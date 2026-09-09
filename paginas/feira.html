@@ -6,7 +6,7 @@
   <title>Como Funciona a Feira de Livros</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    /* Reset e Layout Principal ocupando 100% do container */
+    /* Reset e Layout Principal */
     * {
       margin: 0;
       padding: 0;
@@ -15,19 +15,25 @@
 
     html, body {
       width: 100%;
-      height: 100%;
       min-height: 100%;
-      overflow: hidden;
       font-family: 'Montserrat', sans-serif;
       background-color: transparent;
     }
 
+    /* Permite rolagem normal em telas pequenas e trava só no desktop */
+    @media (min-width: 769px) {
+      html, body {
+        height: 100%;
+        overflow: hidden;
+      }
+    }
+
     .feira-wrapper {
       width: 100%;
-      height: 100%;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
-      padding: 16px 24px;
+      padding: 16px 20px;
       gap: 16px;
       box-sizing: border-box;
     }
@@ -39,7 +45,7 @@
     }
 
     .main-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 900;
       color: #0b3c5d;
       text-transform: uppercase;
@@ -57,12 +63,12 @@
       font-weight: 600;
     }
 
-    /* Painel de Conteúdo (Grelha 2 Colunas Ocupando Altura Total) */
+    /* Painel de Conteúdo */
     .steps-container {
       flex: 1;
       display: flex;
       gap: 20px;
-      min-height: 0; /* Impede overflow flexbox */
+      min-height: 0;
     }
 
     /* Coluna Esquerda: Lista de Etapas */
@@ -79,7 +85,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 0 16px;
+      padding: 10px 16px;
       background: #FFFFFF;
       border: 2px solid #E2E8F0;
       border-radius: 12px;
@@ -92,7 +98,6 @@
     .step-btn:hover {
       border-color: #CBD5E1;
       background: #F8FAFC;
-      transform: translateX(4px);
     }
 
     .step-btn.active {
@@ -154,7 +159,7 @@
       background: #FFFFFF;
       border: 1px solid #E2E8F0;
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px 24px;
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
       display: flex;
       flex-direction: column;
@@ -164,7 +169,7 @@
 
     .card-panel {
       display: none;
-      height: 100%;
+      width: 100%;
       flex-direction: column;
     }
 
@@ -182,13 +187,13 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 2px solid #F1F5F9;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .panel-header h2 {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
       color: #0B3C5D;
     }
@@ -197,29 +202,25 @@
       color: #D4AF37;
     }
 
-    .panel-body {
-      flex: 1;
-    }
-
     .panel-body p {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       color: #334155;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .item-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .item-list li {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      font-size: 13.5px;
+      font-size: 13px;
       color: #475569;
       line-height: 1.5;
     }
@@ -235,7 +236,7 @@
       line-height: 1.4;
     }
 
-    /* Suporte a Dark Mode Automático */
+    /* Suporte a Dark Mode */
     body.dark-mode {
       background-color: #121212;
       color: #E2E8F0;
@@ -243,7 +244,6 @@
     body.dark-mode .main-title { color: #FFFFFF; }
     body.dark-mode .subtitle { color: #94A3B8; }
     body.dark-mode .step-btn { background: #1E293B; border-color: #334155; }
-    body.dark-mode .step-btn:hover { background: #334155; }
     body.dark-mode .step-btn.active { background: #1E293B; border-color: #D4AF37; }
     body.dark-mode .step-title { color: #F8FAFC; }
     body.dark-mode .step-subtitle { color: #94A3B8; }
@@ -254,12 +254,61 @@
     body.dark-mode .item-list li { color: #CBD5E1; }
     body.dark-mode .item-list li strong { color: #38BDF8; }
 
-    /* Responsividade */
+    /* REGRAS RESPONSIVAS PARA SMARTPHONES */
     @media (max-width: 768px) {
-      .steps-container { flex-direction: column; }
-      .steps-nav { flex: 0 0 auto; flex-direction: row; flex-wrap: wrap; }
-      .step-btn { flex: 1 1 calc(50% - 6px); padding: 10px; }
+      .feira-wrapper {
+        padding: 12px;
+        gap: 12px;
+        min-height: auto;
+      }
+
+      .main-title { font-size: 17px; }
+      .subtitle { font-size: 12px; }
+
+      .steps-container {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      /* Barra de etapas em rolagem horizontal */
+      .steps-nav {
+        flex: 0 0 auto;
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        gap: 8px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .step-btn {
+        flex: 0 0 auto;
+        min-width: 140px;
+        padding: 8px 12px;
+        border-radius: 10px;
+      }
+
+      .step-number {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        font-size: 12px;
+      }
+
+      .step-title { font-size: 12px; }
       .step-subtitle { display: none; }
+      .step-icon { font-size: 15px; }
+
+      .step-content-area {
+        flex: none;
+        width: 100%;
+        min-height: 220px;
+        padding: 16px;
+        border-radius: 12px;
+        overflow-y: visible;
+      }
+
+      .panel-header h2 { font-size: 16px; }
+      .item-list li { font-size: 12.5px; }
     }
   </style>
 </head>
@@ -275,7 +324,7 @@
     <!-- Estrutura Principal -->
     <main class="steps-container">
       
-      <!-- Navegação Lateral (Abas) -->
+      <!-- Navegação Lateral / Aba Horizontal -->
       <nav class="steps-nav" role="tablist">
         <button class="step-btn active" onclick="setStep(0)" role="tab" aria-selected="true">
           <span class="step-number">1</span>
@@ -324,7 +373,7 @@
       </nav>
 
       <!-- Exibição do Conteúdo -->
-      <section class="step-content-area">
+      <section class="step-content-area" id="contentArea">
         
         <!-- Etapa 1 -->
         <article class="card-panel active">
@@ -406,7 +455,6 @@
   </div>
 
   <script>
-    // Troca de abas funcional
     function setStep(index) {
       const buttons = document.querySelectorAll('.step-btn');
       const panels = document.querySelectorAll('.card-panel');
@@ -420,9 +468,16 @@
       panels.forEach((panel, i) => {
         panel.classList.toggle('active', i === index);
       });
+
+      // Rolagem suave até o conteúdo quando clicado no celular
+      if (window.innerWidth <= 768) {
+        const contentArea = id = document.getElementById('contentArea');
+        if (contentArea) {
+          contentArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
     }
 
-    // Sincronização automática com Tema Escuro caso a página pai utilize dark mode
     function syncDarkMode() {
       try {
         if (window.parent && window.parent.document.body.classList.contains('dark-mode')) {
@@ -430,9 +485,7 @@
         } else {
           document.body.classList.remove('dark-mode');
         }
-      } catch (e) {
-        // Trata potenciais restrições de cross-origin caso existam
-      }
+      } catch (e) {}
     }
 
     syncDarkMode();
