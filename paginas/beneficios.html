@@ -7,133 +7,213 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html, body { min-height: 100%; }
+
     body {
       font-family: 'Montserrat', sans-serif;
       background: #ffffff;
-      padding: 20px 24px;
+      padding: 24px 28px;
       overflow-y: auto;
-      height: 100%;
       transition: background 0.4s;
     }
-    body.dark-mode { background: #1e1e1e; }
+    body.dark-mode { background: #1a1a2e; }
 
     .section-title {
       font-size: 20px; font-weight: 800; color: #0b3c5d;
       text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
       transition: color 0.4s;
     }
+    .section-title.sub { font-size: 17px; margin-top: 24px; }
     body.dark-mode .section-title { color: #f0f0f0; }
     .section-title span { color: #d4af37; }
 
     p {
-      font-size: 14px; color: #4a5568; line-height: 1.8;
-      margin-bottom: 14px; transition: color 0.4s;
+      font-size: 15px; color: #4a5568; line-height: 1.7;
+      margin-bottom: 16px; transition: color 0.4s;
     }
-    body.dark-mode p { color: #b0b0b0; }
+    body.dark-mode p { color: #c0c0c0; }
 
-    .grid-2col {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;
-    }
-    .grid-3col {
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 12px 0;
-    }
+    /* GRIDS */
+    .grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+    .grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
+
+    /* CARDS */
     .card {
-      background: #f8fafc; border-radius: 10px; padding: 14px 18px;
-      border-left: 4px solid #d4af37; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      transition: background 0.4s;
+      background: #f8fafc; border-radius: 12px; padding: 18px 20px;
+      border-left: 4px solid #d4af37; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      transition: background 0.4s, transform 0.3s;
     }
-    body.dark-mode .card { background: #2a2a2a; }
+    .card:hover { transform: translateY(-3px); }
+    body.dark-mode .card { background: #2d2d44; }
+
+    .card.highlight { border-left-color: #25d366; }
     .card h3 {
-      font-size: 14px; font-weight: 700; color: #0b3c5d;
-      margin-bottom: 6px; text-transform: uppercase;
-      transition: color 0.4s;
+      font-size: 15px; font-weight: 800; color: #0b3c5d;
+      margin-bottom: 10px; text-transform: uppercase; transition: color 0.4s;
     }
     body.dark-mode .card h3 { color: #f0f0f0; }
+
     .card ul { list-style: none; padding: 0; }
     .card ul li {
-      font-size: 12px; color: #2d3748; padding: 2px 0;
-      display: flex; align-items: center; gap: 8px;
+      font-size: 13.5px; color: #2d3748; padding: 4px 0;
+      display: flex; align-items: center; gap: 8px; line-height: 1.5;
       transition: color 0.4s;
     }
     body.dark-mode .card ul li { color: #d0d0d0; }
     .card ul li::before { content: "✦"; color: #d4af37; font-weight: bold; }
 
-    @media (max-width: 768px) {
-      body { padding: 12px 14px; }
-      .grid-2col, .grid-3col { grid-template-columns: 1fr; gap: 10px; }
-      .section-title { font-size: 17px; }
-      p { font-size: 13px; }
+    /* CARD DESTAQUE FINANCEIRO / OFICINA */
+    .card-offer {
+      background: #fffdf0; border: 2px dashed #d4af37; border-radius: 12px;
+      padding: 16px; text-align: center; transition: background 0.4s;
     }
-    @media (max-width: 480px) {
-      .section-title { font-size: 15px; }
-      p { font-size: 12px; }
+    body.dark-mode .card-offer { background: #262638; border-color: #d4af37; }
+    .card-offer .badge-val { font-size: 26px; font-weight: 900; color: #0b3c5d; margin-bottom: 4px; }
+    body.dark-mode .card-offer .badge-val { color: #d4af37; }
+    .card-offer p { font-size: 13px; margin-bottom: 0; font-weight: 600; }
+
+    /* BOX INFORMATIVO / REQUISITOS */
+    .info-box {
+      background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 12px;
+      padding: 20px; margin-top: 20px; transition: background 0.4s, border-color 0.4s;
+    }
+    body.dark-mode .info-box { background: #252538; border-color: #3b3b54; }
+    .info-box h4 {
+      font-size: 15px; font-weight: 800; color: #0b3c5d; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    body.dark-mode .info-box h4 { color: #f0f0f0; }
+    .info-box ul { list-style: none; padding-left: 0; }
+    .info-box ul li {
+      font-size: 13px; color: #334155; margin-bottom: 8px; line-height: 1.6;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    body.dark-mode .info-box ul li { color: #c0c0d0; }
+    .info-box ul li::before { content: "📌"; font-size: 14px; }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 900px) {
+      .grid-3col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      body { padding: 16px 18px; }
+      .grid-2col { grid-template-columns: 1fr; gap: 12px; }
+      .section-title { font-size: 18px; }
+      .section-title.sub { font-size: 16px; }
+      p { font-size: 14px; }
     }
   </style>
 </head>
 <body>
-  <h2 class="section-title">📖 <span>Benefícios</span> para sua Escola</h2>
 
+  <h2 class="section-title">📖 <span>Benefícios</span> Exclusivos</h2>
   <p>
-    A IDEAL Feira de Livros oferece uma série de vantagens para escolas, alunos e famílias. Veja abaixo todos os benefícios:
+    A IDEAL Feira de Livros oferece vantagens financeiras, pedagógicas e recreativas para garantir um evento completo em sua instituição:
   </p>
 
-  <h2 class="section-title">🏫 <span>Para a Escola</span></h2>
+  <!-- OFERTAS ESPECIAIS (IMAGEM 1) -->
+  <div class="grid-3col">
+    <div class="card-offer">
+      <div class="badge-val">🏷️ 10% OFF</div>
+      <p>Desconto em livros para toda a equipe escolar</p>
+    </div>
+    <div class="card-offer">
+      <div class="badge-val">💰 10%</div>
+      <p>Porcento do valor das vendas retornado para o Colégio</p>
+    </div>
+    <div class="card-offer">
+      <div class="badge-val">🎈 GRATUITO</div>
+      <p>Oficina de Escultura com Balões durante todo o evento</p>
+    </div>
+  </div>
+
+  <h2 class="section-title sub">🏫 <span>Para a Escola</span></h2>
   <div class="grid-2col">
-    <div class="card">
-      <h3>✅ Vantagens</h3>
+    <div class="card highlight">
+      <h3>✅ Vantagens Institucionais</h3>
       <ul>
-        <li>Sem custo para a instituição</li>
-        <li>Incentivo à leitura</li>
-        <li>Participação das famílias</li>
-        <li>Diversas editoras parceiras</li>
-        <li>Atendimento personalizado</li>
-        <li>Organização completa</li>
+        <li>Sem custo de estrutura para a escola</li>
+        <li>Retorno financeiro de 10% sobre as vendas</li>
+        <li>Desconto especial para professores e funcionários</li>
+        <li>Convite virtual personalizado com logo do Colégio</li>
+        <li>Atendimento e curadoria personalizados</li>
       </ul>
     </div>
     <div class="card">
-      <h3>⭐ Diferenciais</h3>
+      <h3>⭐ Estrutura e Suporte</h3>
       <ul>
-        <li>Desde 1997</li>
-        <li>Experiência consolidada</li>
-        <li>Atendimento personalizado</li>
-        <li>Acervo diversificado</li>
-        <li>Montagem e desmontagem inclusas</li>
-        <li>Segurança e organização</li>
+        <li>Experiência desde 1997</li>
+        <li>Diversas editoras parceiras</li>
+        <li>Montagem e organização completa</li>
+        <li>Visitação guiada antecipada para alunos</li>
+        <li>Segurança e facilidade no fluxo</li>
       </ul>
     </div>
   </div>
 
-  <h2 class="section-title">👨‍👩‍👧‍👦 <span>Para Alunos e Famílias</span></h2>
+  <h2 class="section-title sub">👨‍👩‍👧‍👦 <span>Para Alunos e Famílias</span></h2>
   <div class="grid-3col">
     <div class="card">
-      <h3>📚 Leitura</h3>
+      <h3>📚 Leitura & Acervo</h3>
       <ul>
-        <li>Acesso a livros diversos</li>
-        <li>Incentivo ao hábito da leitura</li>
-        <li>Descoberta de novos títulos</li>
+        <li>Acesso a títulos diversificados</li>
+        <li>Incentivo direto ao hábito leitor</li>
+        <li>Preços acessíveis para as famílias</li>
       </ul>
     </div>
     <div class="card">
-      <h3>🎉 Experiência</h3>
+      <h3>🎉 Experiência & Recreação</h3>
       <ul>
-        <li>Ambiente encantador</li>
-        <li>Momento com a família</li>
-        <li>Memórias afetivas</li>
+        <li>Oficina gratuita de balões</li>
+        <li>Ambiente lúdico e acolhedor</li>
+        <li>Momento de integração familiar</li>
       </ul>
     </div>
     <div class="card">
       <h3>💛 Aprendizado</h3>
       <ul>
-        <li>Estímulo à criatividade</li>
-        <li>Desenvolvimento cognitivo</li>
-        <li>Ampliação do repertório</li>
+        <li>Estímulo à autonomia de escolha</li>
+        <li>Desenvolvimento do repertório cultural</li>
+        <li>Memórias afetivas com a leitura</li>
       </ul>
     </div>
   </div>
 
+  <!-- CAIXA INFORMATIVA COM AS REGRAS E DIRETRIZES (IMAGEM 2) -->
+  <div class="info-box">
+    <h4>📋 Informações Importantes & Diretrizes do Evento</h4>
+    <ul>
+      <li><strong>Montagem Antecipada:</strong> Solicitamos a montagem com 1 dia de antecedência para que os alunos façam a visitação guiada acompanhados dos professores.</li>
+      <li><strong>Divulgação:</strong> Fornecemos convite virtual personalizado contendo data, horário e logomarca do Colégio.</li>
+      <li><strong>Local de Exposição:</strong> A feira deve ser instalada em local de fácil circulação de pais e alunos.</li>
+      <li><strong>Público Mínimo:</strong> Parceria válida para escolas com no mínimo 50 alunos.</li>
+      <li><strong>Compromisso de Agendamento:</strong> Para garantir a organização e atendimento a todos os colégios parceiros, pedimos confirmação definitiva da data (sem cancelamentos após o agendamento).</li>
+      <li><strong>Escopo:</strong> Não realizamos montagem para eventos no formato de "Dia do Autógrafo" (livros produzidos pelos próprios alunos).</li>
+    </ul>
+  </div>
+
   <script>
-    if (window.parent && window.parent.document.body.classList.contains('dark-mode')) {
-      document.body.classList.add('dark-mode');
+    function aplicarTemaEscuro() {
+      try {
+        if (window.parent && window.parent.document.body.classList.contains('dark-mode')) {
+          document.body.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+        }
+      } catch (e) {}
+    }
+
+    aplicarTemaEscuro();
+
+    if (window.parent && window.parent.document.body) {
+      try {
+        const observer = new MutationObserver(aplicarTemaEscuro);
+        observer.observe(window.parent.document.body, { 
+          attributes: true, 
+          attributeFilter: ['class'] 
+        });
+      } catch (e) {}
     }
   </script>
 </body>
