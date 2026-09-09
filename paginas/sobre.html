@@ -7,174 +7,176 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
     body {
       font-family: 'Montserrat', sans-serif;
       background: #ffffff;
-      padding: 20px 24px;
-      overflow-y: auto;
+      padding: 14px 20px;
       height: 100%;
+      overflow: hidden;
       transition: background 0.4s;
+      display: flex;
+      flex-direction: column;
     }
-    body.dark-mode { background: #1e1e1e; }
+    body.dark-mode { background: #1a1a2e; }
 
     .section-title {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 900;
       color: #0b3c5d;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       transition: color 0.4s;
       border-bottom: 3px solid #d4af37;
-      padding-bottom: 8px;
+      padding-bottom: 4px;
+      flex-shrink: 0;
     }
     body.dark-mode .section-title { color: #f0f0f0; }
     .section-title span { color: #d4af37; }
 
     .intro-text {
-      font-size: 15px;
+      font-size: 13px;
       color: #4a5568;
-      line-height: 1.9;
-      margin-bottom: 20px;
+      line-height: 1.6;
+      margin-bottom: 8px;
       transition: color 0.4s;
+      flex-shrink: 0;
     }
     body.dark-mode .intro-text { color: #c0c0c0; }
     .intro-text strong { color: #0b3c5d; }
     body.dark-mode .intro-text strong { color: #d4af37; }
 
-    .highlight-box {
-      background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin: 16px 0 20px 0;
-      border-left: 5px solid #d4af37;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: background 0.4s;
-    }
-    body.dark-mode .highlight-box {
-      background: #2a2a2a;
-    }
-    .highlight-box p {
-      font-size: 14px;
-      color: #4a5568;
-      line-height: 1.8;
-      font-style: italic;
-      transition: color 0.4s;
-    }
-    body.dark-mode .highlight-box p { color: #c0c0c0; }
-    .highlight-box .autor {
-      font-style: normal;
-      font-weight: 700;
-      color: #0b3c5d;
-      margin-top: 6px;
-      display: block;
-    }
-    body.dark-mode .highlight-box .autor { color: #d4af37; }
-
     .grid-2col {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin: 16px 0;
+      gap: 10px;
+      flex: 1;
+      min-height: 0;
     }
+
     .card {
       background: #f8fafc;
-      border-radius: 12px;
-      padding: 18px 20px;
+      border-radius: 10px;
+      padding: 12px 14px;
       border-left: 4px solid #d4af37;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       transition: background 0.4s, transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .card:hover { transform: translateY(-2px); }
-    body.dark-mode .card { background: #2a2a2a; }
-    .card .icon { font-size: 32px; display: block; margin-bottom: 6px; }
+    body.dark-mode .card { background: #2d2d44; }
+    .card .icon { font-size: 24px; display: block; margin-bottom: 2px; }
     .card h3 {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
       color: #0b3c5d;
-      margin-bottom: 6px;
+      margin-bottom: 3px;
       transition: color 0.4s;
     }
     body.dark-mode .card h3 { color: #f0f0f0; }
     .card p {
-      font-size: 13px;
+      font-size: 11px;
       color: #4a5568;
-      line-height: 1.6;
+      line-height: 1.5;
       margin-bottom: 0;
       transition: color 0.4s;
     }
     body.dark-mode .card p { color: #b0b0b0; }
 
-    .timeline-box {
+    .fundador-box {
       background: #f8fafc;
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin: 16px 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      transition: background 0.4s;
-    }
-    body.dark-mode .timeline-box { background: #2a2a2a; }
-    .timeline-box h3 {
-      font-size: 14px;
-      font-weight: 700;
-      color: #d4af37;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-    .timeline-item {
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: 1px solid #e8edf2;
+      transition: background 0.4s, border-color 0.4s;
+      flex-shrink: 0;
+      margin-top: 6px;
       display: flex;
-      gap: 16px;
-      padding: 8px 0;
-      border-bottom: 1px solid #e8edf2;
+      align-items: center;
+      gap: 14px;
     }
-    body.dark-mode .timeline-item { border-bottom-color: #444; }
-    .timeline-item:last-child { border-bottom: none; }
-    .timeline-item .ano {
-      font-weight: 800;
+    body.dark-mode .fundador-box {
+      background: #2d2d44;
+      border-color: #4a4a6a;
+    }
+    .fundador-box .foto {
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+    .fundador-box .info h3 {
+      font-size: 13px;
       color: #0b3c5d;
-      font-size: 14px;
-      min-width: 60px;
       transition: color 0.4s;
     }
-    body.dark-mode .timeline-item .ano { color: #d4af37; }
-    .timeline-item .desc {
-      font-size: 13px;
+    body.dark-mode .fundador-box .info h3 { color: #f0f0f0; }
+    .fundador-box .info h3 span { color: #d4af37; }
+    .fundador-box .info p {
+      font-size: 11px;
       color: #4a5568;
       line-height: 1.5;
       transition: color 0.4s;
     }
-    body.dark-mode .timeline-item .desc { color: #b0b0b0; }
-    .timeline-item .desc strong { color: #0b3c5d; }
-    body.dark-mode .timeline-item .desc strong { color: #d4af37; }
+    body.dark-mode .fundador-box .info p { color: #b0b0b0; }
+    .fundador-box .info .frase {
+      font-style: italic;
+      font-size: 11px;
+      color: #718096;
+      transition: color 0.4s;
+    }
+    body.dark-mode .fundador-box .info .frase { color: #8888aa; }
 
     .assinatura {
       text-align: right;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 600;
       color: #0b3c5d;
-      margin-top: 16px;
-      padding-top: 12px;
+      margin-top: 6px;
+      padding-top: 6px;
       border-top: 2px solid #d4af37;
       transition: color 0.4s;
+      flex-shrink: 0;
     }
     body.dark-mode .assinatura { color: #d4af37; }
 
+    /* ===== RESPONSIVO ===== */
     @media (max-width: 768px) {
-      body { padding: 12px 14px; }
-      .grid-2col { grid-template-columns: 1fr; gap: 12px; }
-      .section-title { font-size: 18px; }
-      .intro-text { font-size: 14px; }
-      .highlight-box p { font-size: 13px; }
-      .timeline-item { flex-direction: column; gap: 4px; }
-      .timeline-item .ano { min-width: auto; }
-    }
-    @media (max-width: 480px) {
+      body { padding: 10px 12px; }
       .section-title { font-size: 16px; }
-      .intro-text { font-size: 13px; }
-      .card h3 { font-size: 13px; }
-      .card p { font-size: 12px; }
-      .highlight-box { padding: 14px 16px; }
+      .intro-text { font-size: 12px; margin-bottom: 6px; }
+      .grid-2col { gap: 8px; }
+      .card { padding: 10px 12px; }
+      .card .icon { font-size: 20px; }
+      .card h3 { font-size: 12px; }
+      .card p { font-size: 10px; }
+      .fundador-box { padding: 8px 12px; gap: 10px; }
+      .fundador-box .foto { font-size: 28px; }
+      .fundador-box .info h3 { font-size: 12px; }
+      .fundador-box .info p { font-size: 10px; }
+      .fundador-box .info .frase { font-size: 10px; }
+      .assinatura { font-size: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 8px 10px; }
+      .section-title { font-size: 14px; }
+      .intro-text { font-size: 11px; }
+      .grid-2col { grid-template-columns: 1fr 1fr; gap: 6px; }
+      .card { padding: 8px 10px; }
+      .card .icon { font-size: 18px; }
+      .card h3 { font-size: 11px; }
+      .card p { font-size: 9px; line-height: 1.4; }
+      .fundador-box { padding: 6px 10px; gap: 8px; flex-wrap: wrap; justify-content: center; text-align: center; }
+      .fundador-box .foto { font-size: 24px; }
+      .fundador-box .info h3 { font-size: 11px; }
+      .fundador-box .info p { font-size: 9px; }
+      .fundador-box .info .frase { font-size: 9px; }
+      .assinatura { font-size: 9px; margin-top: 4px; padding-top: 4px; }
     }
   </style>
 </head>
@@ -183,16 +185,8 @@
   <h2 class="section-title">📖 <span>Sobre</span> a IDEAL Feira de Livros</h2>
 
   <p class="intro-text">
-    A <strong>IDEAL Feira de Livros</strong> nasceu da paixão pelos livros e do desejo de levar o universo da leitura para dentro das escolas. Fundada por <strong>Ricardo Coutinho</strong>, a empresa tem uma história que começa muito antes de seu nome oficial.
+    A <strong>IDEAL Feira de Livros</strong> nasceu da paixão pelos livros e do desejo de levar o universo da leitura para dentro das escolas. Fundada por <strong>Ricardo Coutinho</strong> em 1997, a empresa se consolidou como referência em feiras escolares, com centenas de eventos realizados e milhares de crianças impactadas.
   </p>
-
-  <!-- Destaque da História -->
-  <div class="highlight-box">
-    <p>
-      "Tudo começou na <strong>Livraria Siciliano</strong>, onde eu e meu sócio trabalhamos juntos de <strong>1992 a 1997</strong>. Quando fomos desligados, eu decidi transformar minha paixão por livros em um negócio próprio. Comecei a realizar feiras em escolas, e o que era um recomeço se tornou uma trajetória de sucesso que já dura mais de 25 anos."
-    </p>
-    <span class="autor">— Ricardo Coutinho, fundador da IDEAL Feira de Livros</span>
-  </div>
 
   <!-- Grid com os pilares -->
   <div class="grid-2col">
@@ -200,79 +194,44 @@
       <span class="icon">📚</span>
       <h3>Nossa História</h3>
       <p>
-        Desde 1997, a IDEAL vem construindo uma trajetória de sucesso. Com centenas de feiras realizadas, a empresa se consolidou como referência no incentivo à leitura em escolas particulares de todo o Brasil.
+        Desde 1997, a IDEAL transforma escolas em espaços de descoberta e encantamento, levando livros de qualidade para alunos, famílias e educadores.
       </p>
     </div>
     <div class="card">
       <span class="icon">🎯</span>
       <h3>Nossa Missão</h3>
       <p>
-        Promover o acesso à leitura de qualidade, transformando o ambiente escolar em um espaço de descoberta, encantamento e aprendizado para crianças, famílias e educadores.
+        Promover o acesso à leitura de qualidade, transformando o ambiente escolar em um espaço de aprendizado e descoberta.
       </p>
     </div>
     <div class="card">
       <span class="icon">💛</span>
       <h3>Nossos Valores</h3>
       <p>
-        Compromisso com a educação, respeito às famílias, excelência no atendimento, curadoria de qualidade e, acima de tudo, a paixão genuína pelos livros e pela leitura.
+        Compromisso com a educação, excelência no atendimento, curadoria de qualidade e paixão genuína pelos livros e pela leitura.
       </p>
     </div>
     <div class="card">
       <span class="icon">🌟</span>
       <h3>Nossa Visão</h3>
       <p>
-        Ser referência nacional em feiras de livros escolares, reconhecida pela qualidade do acervo, organização impecável e impacto positivo na formação de leitores.
+        Ser referência nacional em feiras de livros escolares, reconhecida pela qualidade do acervo, organização impecável e impacto na formação de leitores.
       </p>
     </div>
   </div>
 
-  <!-- Linha do Tempo -->
-  <div class="timeline-box">
-    <h3>⏳ Linha do Tempo</h3>
-
-    <div class="timeline-item">
-      <span class="ano">1992</span>
-      <span class="desc"><strong>Início na Livraria Siciliano</strong> — Ricardo Coutinho começa sua trajetória no mundo dos livros, trabalhando ao lado de seu futuro sócio.</span>
-    </div>
-
-    <div class="timeline-item">
-      <span class="ano">1997</span>
-      <span class="desc"><strong>Fundação da IDEAL</strong> — Após o desligamento da Siciliano, Ricardo decide empreender e cria a IDEAL Feira de Livros, realizando suas primeiras feiras em escolas.</span>
-    </div>
-
-    <div class="timeline-item">
-      <span class="ano">2000 - 2010</span>
-      <span class="desc"><strong>Expansão</strong> — A IDEAL se consolida no mercado, realizando dezenas de feiras anualmente e ampliando seu acervo com parcerias com as principais editoras do país.</span>
-    </div>
-
-    <div class="timeline-item">
-      <span class="ano">2010 - 2020</span>
-      <span class="desc"><strong>Reconhecimento</strong> — A empresa se torna referência em feiras de livros infantojuvenis, atendendo escolas em diversas cidades e estados.</span>
-    </div>
-
-    <div class="timeline-item">
-      <span class="ano">2024</span>
-      <span class="desc"><strong>Novo Sócio</strong> — O antigo parceiro da Livraria Siciliano, que também seguiu carreira no ramo, funda sua própria empresa, e a amizade e parceria continuam.</span>
-    </div>
-
-    <div class="timeline-item">
-      <span class="ano">2026</span>
-      <span class="desc"><strong>Atualidade</strong> — Com mais de 25 anos de história, a IDEAL segue firme, levando o encantamento dos livros para milhares de crianças e fortalecendo o vínculo entre escolas e famílias.</span>
-    </div>
-  </div>
-
   <!-- Fundador -->
-  <div style="margin-top: 16px; padding: 16px 20px; background: #f8fafc; border-radius: 12px; border: 1px solid #e8edf2; transition: background 0.4s, border-color 0.4s;">
-    <body.dark-mode div="" style="background: #2a2a2a; border-color: #444;"></body.dark-mode>
-    <h3 style="font-size: 16px; color: #0b3c5d; margin-bottom: 4px; transition: color 0.4s;">
-      👤 <span style="color: #d4af37;">Ricardo Coutinho</span>
-    </h3>
-    <p style="font-size: 13px; color: #4a5568; line-height: 1.6; transition: color 0.4s;">
-      Fundador e idealizador da IDEAL Feira de Livros. Com mais de 30 anos de experiência no mercado editorial, Ricardo dedica sua vida a promover o acesso à leitura e a criar experiências inesquecíveis para crianças, famílias e educadores.
-    </p>
-    <p style="font-size: 13px; color: #4a5568; line-height: 1.6; margin-top: 4px; transition: color 0.4s;">
-      <strong>Frase de inspiração:</strong> <em>"Um livro é uma porta para infinitos mundos. Meu trabalho é abrir essa porta para cada criança."</em>
-    </p>
+  <div class="fundador-box">
+    <div class="foto">👤</div>
+    <div class="info">
+      <h3><span>Ricardo Coutinho</span> — Fundador</h3>
+      <p>
+        Com mais de 30 anos no mercado editorial, Ricardo dedica sua vida a promover o acesso à leitura e a criar experiências inesquecíveis para crianças, famílias e educadores.
+      </p>
+      <p class="frase">
+        "Um livro é uma porta para infinitos mundos. Meu trabalho é abrir essa porta para cada criança."
+      </p>
+    </div>
   </div>
 
   <div class="assinatura">
