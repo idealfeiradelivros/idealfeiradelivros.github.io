@@ -13,9 +13,12 @@
       padding: 16px 24px;
       overflow-y: auto;
       height: 100%;
-      transition: background 0.4s;
+      transition: background 0.4s, color 0.4s;
     }
-    body.dark-mode { background: #1e1e1e; }
+    body.dark-mode { 
+      background: #1a1a2e; 
+      color: #e0e0e0;
+    }
 
     .section-title {
       font-size: 18px;
@@ -38,7 +41,7 @@
     }
     body.dark-mode p { color: #b0b0b0; }
 
-    /* ===== FORMULÁRIO EM 2 LINHAS ===== */
+    /* ===== FORMULÁRIO ===== */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -66,21 +69,47 @@
       border-radius: 6px;
       font-size: 12px;
       font-family: 'Montserrat', sans-serif;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.4s, color 0.4s;
       background: #fff;
+      color: #1a202c;
     }
     body.dark-mode .form-group input,
     body.dark-mode .form-group textarea,
     body.dark-mode .form-group select {
-      background: #2a2a2a;
-      border-color: #444;
+      background: #2d2d44;
+      border-color: #4a4a6a;
       color: #f0f0f0;
+    }
+    body.dark-mode .form-group input::placeholder,
+    body.dark-mode .form-group textarea::placeholder {
+      color: #8888aa;
     }
     .form-group input:focus,
     .form-group textarea:focus,
     .form-group select:focus {
       border-color: #d4af37;
       outline: none;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+    .form-group input.error,
+    .form-group textarea.error {
+      border-color: #e53e3e;
+      box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2);
+    }
+    .form-group input.success,
+    .form-group textarea.success {
+      border-color: #38a169;
+      box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.2);
+    }
+    .form-group .error-message {
+      font-size: 10px;
+      color: #e53e3e;
+      min-height: 14px;
+      margin-top: 2px;
+      display: none;
+    }
+    .form-group .error-message.show {
+      display: block;
     }
     .form-group textarea {
       resize: vertical;
@@ -100,28 +129,40 @@
       width: 100%;
     }
     .btn-submit:hover { background: #d4af37; transform: scale(1.02); }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    body.dark-mode .btn-submit {
+      background: #d4af37;
+      color: #1a1a2e;
+    }
+    body.dark-mode .btn-submit:hover {
+      background: #e8c84a;
+    }
 
-    /* ===== QR CODES GRANDES ===== */
+    /* ===== QR CODES - TAMANHO IDEAL ===== */
     .qr-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 16px;
       margin-top: 12px;
     }
 
     .qr-card {
       background: #f8fafc;
-      border-radius: 12px;
-      padding: 16px 20px;
+      border-radius: 10px;
+      padding: 14px 18px;
       border: 1px solid #e2e8f0;
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
       transition: background 0.4s, border-color 0.4s;
     }
     body.dark-mode .qr-card {
-      background: #2a2a2a;
-      border-color: #444;
+      background: #2d2d44;
+      border-color: #4a4a6a;
     }
 
     .qr-card .info {
@@ -131,30 +172,28 @@
     .qr-card .info .icon-wrap {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       margin-bottom: 2px;
     }
     .qr-card .info .icon-wrap svg {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       flex-shrink: 0;
     }
     .qr-card .info .icon-wrap .icon-whatsapp { fill: #25D366; }
     .qr-card .info .icon-wrap .icon-instagram { fill: #E4405F; }
-    body.dark-mode .qr-card .info .icon-wrap .icon-whatsapp { fill: #25D366; }
-    body.dark-mode .qr-card .info .icon-wrap .icon-instagram { fill: #E4405F; }
 
     .qr-card .info h4 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       color: #0b3c5d;
       transition: color 0.4s;
     }
     body.dark-mode .qr-card .info h4 { color: #f0f0f0; }
     .qr-card .info p {
-      font-size: 13px;
+      font-size: 12px;
       margin-bottom: 0;
-      line-height: 1.4;
+      line-height: 1.3;
     }
     body.dark-mode .qr-card .info p { color: #b0b0b0; }
     .qr-card .info a {
@@ -162,20 +201,24 @@
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s;
+      font-size: 12px;
     }
     body.dark-mode .qr-card .info a { color: #d4af37; }
     .qr-card .info a:hover { color: #d4af37; }
     .qr-card .info .small {
-      font-size: 11px;
+      font-size: 10px;
       color: #a0aec0;
     }
+    body.dark-mode .qr-card .info .small {
+      color: #8888aa;
+    }
 
-    /* QR Code grande */
+    /* QR Code - TAMANHO IDEAL (leitura fácil no celular) */
     .qr-card .qr-code {
-      width: 130px;
-      height: 130px;
-      min-width: 130px;
-      min-height: 130px;
+      width: 110px;
+      height: 110px;
+      min-width: 110px;
+      min-height: 110px;
       flex-shrink: 0;
       border-radius: 8px;
       overflow: hidden;
@@ -183,13 +226,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 6px;
+      padding: 5px;
       border: 2px solid #e2e8f0;
       transition: border-color 0.4s;
     }
     body.dark-mode .qr-card .qr-code {
       background: #ffffff;
-      border-color: #555;
+      border-color: #555577;
     }
     .qr-card .qr-code img {
       width: 100%;
@@ -198,51 +241,54 @@
     }
 
     /* ===== RESPONSIVO ===== */
-    @media (max-width: 900px) {
-      .qr-card .qr-code {
-        width: 110px;
-        height: 110px;
-        min-width: 110px;
-        min-height: 110px;
-      }
-    }
-
     @media (max-width: 768px) {
       body { padding: 10px 14px; }
       .form-grid { grid-template-columns: 1fr; gap: 8px; }
       .form-group.full-width { grid-column: 1; }
-      .qr-container { grid-template-columns: 1fr; gap: 12px; }
+      .qr-container { grid-template-columns: 1fr; gap: 10px; }
       .section-title { font-size: 16px; }
       p { font-size: 12px; }
       .qr-card { padding: 12px 14px; gap: 14px; }
+      
+      /* QR Code maior no mobile para leitura fácil */
       .qr-card .qr-code {
-        width: 100px;
-        height: 100px;
-        min-width: 100px;
-        min-height: 100px;
+        width: 120px;
+        height: 120px;
+        min-width: 120px;
+        min-height: 120px;
       }
       .qr-card .info .icon-wrap svg {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
       }
+      .qr-card .info h4 { font-size: 13px; }
+      .qr-card .info p { font-size: 11px; }
+      .qr-card .info a { font-size: 11px; }
     }
 
     @media (max-width: 480px) {
       .section-title { font-size: 14px; }
       p { font-size: 11px; }
       .btn-submit { font-size: 11px; padding: 6px 12px; }
-      .qr-card { flex-wrap: wrap; justify-content: center; text-align: center; }
+      .qr-card { 
+        flex-direction: column; 
+        text-align: center; 
+        padding: 14px;
+        gap: 12px;
+      }
       .qr-card .info .icon-wrap { justify-content: center; }
       .qr-card .qr-code {
-        width: 140px;
-        height: 140px;
-        min-width: 140px;
-        min-height: 140px;
+        width: 150px;
+        height: 150px;
+        min-width: 150px;
+        min-height: 150px;
+        order: -1; /* QR Code aparece primeiro no mobile */
       }
       .form-group input,
       .form-group textarea,
       .form-group select { font-size: 11px; padding: 5px 8px; }
       .form-group label { font-size: 10px; }
+      .qr-container { gap: 12px; }
     }
   </style>
 </head>
@@ -254,48 +300,52 @@
     Preencha o formulário abaixo e entraremos em contato para agendar uma apresentação gratuita na sua escola.
   </p>
 
-  <!-- FORMULÁRIO EM 2 LINHAS -->
-<form id="contactForm" action="https://formsubmit.co/idealfeiradelivros@gmail.com" method="POST">
-  <div class="form-grid">
-    <div class="form-group">
-      <label for="nome">Nome completo <span class="required">*</span></label>
-      <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required />
+  <!-- FORMULÁRIO -->
+  <form id="contactForm" action="https://formsubmit.co/idealfeiradelivros@gmail.com" method="POST" novalidate>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="nome">Nome completo <span class="required">*</span></label>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required />
+        <span class="error-message" id="nome-error">Digite apenas letras (mínimo 5 caracteres)</span>
+      </div>
+      <div class="form-group">
+        <label for="cargo">Cargo na escola <span class="required">*</span></label>
+        <input type="text" id="cargo" name="cargo" placeholder="Ex: Coordenadora" required />
+        <span class="error-message" id="cargo-error">Digite apenas letras</span>
+      </div>
+      <div class="form-group">
+        <label for="escola">Nome da escola <span class="required">*</span></label>
+        <input type="text" id="escola" name="escola" placeholder="Digite o nome da escola" required />
+        <span class="error-message" id="escola-error">Digite apenas letras</span>
+      </div>
+      <div class="form-group">
+        <label for="telefone">Telefone/WhatsApp <span class="required">*</span></label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required maxlength="15" />
+        <span class="error-message" id="telefone-error">Digite um telefone válido (apenas números)</span>
+      </div>
+      <div class="form-group full-width">
+        <label for="email">E-mail <span class="required">*</span></label>
+        <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+        <span class="error-message" id="email-error">Digite um e-mail válido</span>
+      </div>
+      <div class="form-group full-width">
+        <label for="mensagem">Mensagem / Observações</label>
+        <textarea id="mensagem" name="mensagem" placeholder="Conte-nos sobre sua escola..."></textarea>
+      </div>
+      
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://idealfeiradelivros.github.io/obrigado.html">
+      
+      <div class="form-group full-width">
+        <button type="submit" class="btn-submit" id="submitBtn">📩 Enviar solicitação</button>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="cargo">Cargo na escola <span class="required">*</span></label>
-      <input type="text" id="cargo" name="cargo" placeholder="Ex: Coordenadora" required />
-    </div>
-    <div class="form-group">
-      <label for="escola">Nome da escola <span class="required">*</span></label>
-      <input type="text" id="escola" name="escola" placeholder="Digite o nome da escola" required />
-    </div>
-    <div class="form-group">
-      <label for="telefone">Telefone/WhatsApp <span class="required">*</span></label>
-      <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required />
-    </div>
-    <div class="form-group full-width">
-      <label for="email">E-mail <span class="required">*</span></label>
-      <input type="email" id="email" name="email" placeholder="seu@email.com" required />
-    </div>
-    <div class="form-group full-width">
-      <label for="mensagem">Mensagem / Observações</label>
-      <textarea id="mensagem" name="mensagem" placeholder="Conte-nos sobre sua escola..."></textarea>
-    </div>
-    
-    <!-- 🔽 CAMPOS OCULTOS DO FORMSUBMIT (adicione aqui) 🔽 -->
-    <input type="hidden" name="_captcha" value="true">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_next" value="https://idealfeiradelivros.github.io/obrigado.html">
-    
-    <div class="form-group full-width">
-      <button type="submit" class="btn-submit">📩 Enviar solicitação</button>
-    </div>
-  </div>
-</form>
+  </form>
 
   <h2 class="section-title" style="margin-top: 14px;">📞 <span>Outros</span> canais de contato</h2>
 
-  <!-- QR CODES GRANDES -->
+  <!-- QR CODES - TAMANHO IDEAL -->
   <div class="qr-container">
 
     <!-- WHATSAPP -->
@@ -305,11 +355,11 @@
           <svg class="icon-whatsapp" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
-          <span style="font-size:20px;">📱</span>
+          <span style="font-size:18px;">📱</span>
         </div>
         <h4>WhatsApp</h4>
         <p><a href="https://wa.me/5511963063301" target="_blank">(11) 96306-3301</a></p>
-        <p class="small">Clique para falar conosco agora</p>
+        <p class="small">Clique para falar conosco</p>
       </div>
       <div class="qr-code">
         <img src="../Imagens/qrcode_whatsApp_preto.png" alt="QR Code WhatsApp" />
@@ -323,7 +373,7 @@
           <svg class="icon-instagram" viewBox="0 0 24 24">
             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
           </svg>
-          <span style="font-size:20px;">📷</span>
+          <span style="font-size:18px;">📷</span>
         </div>
         <h4>Instagram</h4>
         <p><a href="https://instagram.com/idealfeiradelivros" target="_blank">@idealfeiradelivros</a></p>
@@ -336,7 +386,206 @@
 
   </div>
 
-  
+  <script>
+    (function() {
+      const form = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      const nomeInput = document.getElementById('nome');
+      const cargoInput = document.getElementById('cargo');
+      const escolaInput = document.getElementById('escola');
+      const telefoneInput = document.getElementById('telefone');
+      const emailInput = document.getElementById('email');
+      
+      const nomeError = document.getElementById('nome-error');
+      const cargoError = document.getElementById('cargo-error');
+      const escolaError = document.getElementById('escola-error');
+      const telefoneError = document.getElementById('telefone-error');
+      const emailError = document.getElementById('email-error');
+
+      const regexLetras = /^[A-Za-zÀ-ÿ\s]+$/;
+
+      function validarNome(valor) {
+        const isValid = regexLetras.test(valor) && valor.trim().length >= 5;
+        
+        if (valor.trim().length === 0) {
+          nomeError.textContent = 'Preencha este campo';
+          nomeError.classList.remove('show');
+          nomeInput.classList.remove('error', 'success');
+        } else if (!regexLetras.test(valor)) {
+          nomeError.textContent = 'Digite apenas letras (sem números ou símbolos)';
+          nomeError.classList.add('show');
+          nomeInput.classList.remove('success');
+          nomeInput.classList.add('error');
+        } else if (valor.trim().length < 5) {
+          nomeError.textContent = 'Digite pelo menos 5 caracteres';
+          nomeError.classList.add('show');
+          nomeInput.classList.remove('success');
+          nomeInput.classList.add('error');
+        } else {
+          nomeError.classList.remove('show');
+          nomeInput.classList.remove('error');
+          nomeInput.classList.add('success');
+        }
+        return isValid;
+      }
+
+      function validarApenasLetras(input, errorElement, mensagem) {
+        const valor = input.value.trim();
+        const isValid = regexLetras.test(valor) && valor.length > 0;
+        
+        if (valor.length === 0) {
+          errorElement.textContent = 'Preencha este campo';
+          errorElement.classList.remove('show');
+          input.classList.remove('error', 'success');
+        } else if (!regexLetras.test(valor)) {
+          errorElement.textContent = mensagem;
+          errorElement.classList.add('show');
+          input.classList.remove('success');
+          input.classList.add('error');
+        } else {
+          errorElement.classList.remove('show');
+          input.classList.remove('error');
+          input.classList.add('success');
+        }
+        return isValid;
+      }
+
+      function validarTelefone(valor) {
+        const numeros = valor.replace(/\D/g, '');
+        const isValid = numeros.length >= 10 && numeros.length <= 11;
+        
+        if (numeros.length === 0) {
+          telefoneError.textContent = 'Preencha este campo';
+          telefoneError.classList.remove('show');
+          telefoneInput.classList.remove('error', 'success');
+        } else if (numeros.length < 10) {
+          telefoneError.textContent = 'Digite um telefone válido (mínimo 10 números)';
+          telefoneError.classList.add('show');
+          telefoneInput.classList.remove('success');
+          telefoneInput.classList.add('error');
+        } else if (numeros.length > 11) {
+          telefoneError.textContent = 'Telefone inválido (máximo 11 números)';
+          telefoneError.classList.add('show');
+          telefoneInput.classList.remove('success');
+          telefoneInput.classList.add('error');
+        } else {
+          telefoneError.classList.remove('show');
+          telefoneInput.classList.remove('error');
+          telefoneInput.classList.add('success');
+        }
+        return isValid;
+      }
+
+      function validarEmail(valor) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = regex.test(valor);
+        
+        if (valor.trim().length === 0) {
+          emailError.textContent = 'Preencha este campo';
+          emailError.classList.remove('show');
+          emailInput.classList.remove('error', 'success');
+        } else if (!isValid) {
+          emailError.textContent = 'Digite um e-mail válido (ex: nome@email.com)';
+          emailError.classList.add('show');
+          emailInput.classList.remove('success');
+          emailInput.classList.add('error');
+        } else {
+          emailError.classList.remove('show');
+          emailInput.classList.remove('error');
+          emailInput.classList.add('success');
+        }
+        return isValid;
+      }
+
+      function mascaraTelefone(valor) {
+        let numeros = valor.replace(/\D/g, '');
+        if (numeros.length <= 10) {
+          return numeros.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        } else {
+          return numeros.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
+      }
+
+      telefoneInput.addEventListener('input', function(e) {
+        this.value = mascaraTelefone(this.value);
+        validarTelefone(this.value);
+      });
+
+      nomeInput.addEventListener('input', function() {
+        validarNome(this.value);
+      });
+      nomeInput.addEventListener('blur', function() {
+        validarNome(this.value);
+      });
+
+      cargoInput.addEventListener('input', function() {
+        validarApenasLetras(this, cargoError, 'Digite apenas letras');
+      });
+      cargoInput.addEventListener('blur', function() {
+        validarApenasLetras(this, cargoError, 'Digite apenas letras');
+      });
+
+      escolaInput.addEventListener('input', function() {
+        validarApenasLetras(this, escolaError, 'Digite apenas letras');
+      });
+      escolaInput.addEventListener('blur', function() {
+        validarApenasLetras(this, escolaError, 'Digite apenas letras');
+      });
+
+      emailInput.addEventListener('input', function() {
+        validarEmail(this.value);
+      });
+      emailInput.addEventListener('blur', function() {
+        validarEmail(this.value);
+      });
+
+      form.addEventListener('submit', function(e) {
+        const nomeValido = validarNome(nomeInput.value);
+        const cargoValido = validarApenasLetras(cargoInput, cargoError, 'Digite apenas letras');
+        const escolaValido = validarApenasLetras(escolaInput, escolaError, 'Digite apenas letras');
+        const telefoneValido = validarTelefone(telefoneInput.value);
+        const emailValido = validarEmail(emailInput.value);
+
+        if (!nomeValido || !cargoValido || !escolaValido || !telefoneValido || !emailValido) {
+          e.preventDefault();
+          
+          const primeiroErro = document.querySelector('.form-group input.error, .form-group textarea.error');
+          if (primeiroErro) {
+            primeiroErro.focus();
+            primeiroErro.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          
+          submitBtn.disabled = true;
+          submitBtn.textContent = '⚠️ Corrija os erros';
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '📩 Enviar solicitação';
+          }, 3000);
+        }
+      });
+
+      function checkDarkMode() {
+        try {
+          if (window.parent && window.parent.document.body.classList.contains('dark-mode')) {
+            document.body.classList.add('dark-mode');
+          }
+        } catch(e) {}
+      }
+      checkDarkMode();
+
+      window.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'darkMode') {
+          if (event.data.value) {
+            document.body.classList.add('dark-mode');
+          } else {
+            document.body.classList.remove('dark-mode');
+          }
+        }
+      });
+
+    })();
+  </script>
 
 </body>
 </html>
