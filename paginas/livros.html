@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Consulta de Livro</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    margin:0;
+    padding:20px;
+}
+
+.card{
+    max-width:500px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+h1{
+    color:#004080;
+}
+
+.preco{
+    color:#008000;
+    font-size:36px;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1 id="titulo">Carregando...</h1>
+    <div class="preco" id="preco"></div>
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const isbn = params.get("isbn");
+
+fetch("../dados/livros.json")
+.then(response => response.json())
+.then(livros => {
+
+    const livro = livros[isbn];
+
+    if(!livro){
+        document.getElementById("titulo").innerText = "Livro não encontrado";
+        return;
+    }
+
+    document.getElementById("titulo").innerText = livro.titulo;
+
+    document.getElementById("preco").innerText =
+        "R$ " + Number(livro.preco).toFixed(2).replace(".", ",");
+
+})
+.catch(() => {
+    document.getElementById("titulo").innerText = "Erro ao carregar dados";
+});
+
+</script>
+
+</body>
+</html>
