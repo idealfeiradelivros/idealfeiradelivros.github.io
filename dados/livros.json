@@ -1,16 +1,16 @@
 [
   {
-    "id": "Livro_0001",
+    "id": "0001",
     "isbn": "9788535914849",
     "titulo": "1984",
     "autor": "George Orwell",
     "assunto": "futurology",
     "editora": "Companhia das Letras",
     "capa": "https://covers.openlibrary.org/b/id/8172473-M.jpg",
-    "valor": "R$ 35,56"
+    "valor": "R$ 62,30"
   },
   {
-    "id": "Livro1",
+    "id": "2",
     "isbn": "9788535902775",
     "titulo": "Não encontrado",
     "autor": "-",
