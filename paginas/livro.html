@@ -9,7 +9,7 @@
     .card { background: white; border-radius: 16px; padding: 24px; max-width: 350px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
     .cover { max-width: 160px; height: auto; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     h2 { color: #1f4e78; margin: 0 0 8px 0; font-size: 20px; }
-    .preco { font-size: 22px; color: #2e7d32; font-weight: bold; margin: 8px 0 16px 0; }
+    .preco { font-size: 22px; color: #2e7d32; font-weight: bold; margin: 10px 0 16px 0; }
     .info { text-align: left; font-size: 15px; color: #444; line-height: 1.6; margin: 12px 0; }
   </style>
 </head>
@@ -42,9 +42,11 @@
     async function carregarDados(code) {
       const isbnLimpo = String(code).replace(/[^0-9X]/gi, '');
 
-      // 1. Prioridade: Busca no seu arquivo local gerado pela planilha
+      // Busca o JSON forçando a NÃO usar cache do navegador/servidor
       try {
-        const resJSON = await fetch('../dados/livros.json');
+        const urlComAnticache = 'dados/livros.json?nocache=' + Date.now();
+        const resJSON = await fetch(urlComAnticache, { cache: 'no-store' });
+        
         if (resJSON.ok) {
           const livros = await resJSON.json();
           const livroEncontrado = livros.find(l => {
@@ -65,10 +67,10 @@
           }
         }
       } catch (e) {
-        console.log("JSON próprio não carregado, tentando APIs externas...");
+        console.log("Erro ao carregar dados do JSON:", e);
       }
 
-      // 2. Reserva: Google Books (sem preço)
+      // Fallback: Google Books (se não encontrar no JSON)
       try {
         const resGB = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnLimpo}`);
         const dataGB = await resGB.json();
@@ -85,31 +87,7 @@
           );
           return;
         }
-      } catch (e) {
-        console.log("Erro no Google Books...");
-      }
-
-      // 3. Reserva: Open Library (sem preço)
-      try {
-        const resOL = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${isbnLimpo}&jscmd=data&format=json`);
-        const dataOL = await resOL.json();
-        const key = `ISBN:${isbnLimpo}`;
-
-        if (dataOL[key]) {
-          const book = dataOL[key];
-          exibirDados(
-            book.title,
-            book.authors ? book.authors.map(a => a.name).join(', ') : 'Não informado',
-            book.subjects ? book.subjects.map(s => s.name).join(', ') : 'Geral',
-            book.publishers ? book.publishers.map(p => p.name).join(', ') : 'Não informada',
-            book.cover ? book.cover.medium : '',
-            null
-          );
-          return;
-        }
-      } catch (e) {
-        console.log("Erro na Open Library...");
-      }
+      } catch (e) {}
 
       document.getElementById('titulo').innerText = "Livro não encontrado.";
     }
@@ -120,12 +98,12 @@
       document.getElementById('assunto').innerText = "🎭 Assunto: " + (assunto || 'Geral');
       document.getElementById('editora').innerText = "🏢 Editora: " + (editora || 'Não informada');
 
-      // Exibe o preço formatado em destaque se existir no JSON
-      if (valor !== undefined && valor !== null && valor !== "") {
-        let precoFormatado = String(valor).includes("R$") ? valor : "R$ " + valor;
-        document.getElementById('preco').innerText = precoFormatado;
+      const elPreco = document.getElementById('preco');
+      if (valor !== undefined && valor !== null && String(valor).trim() !== "") {
+        let valStr = String(valor).trim();
+        elPreco.innerText = valStr.includes("R$") ? valStr : "R$ " + valStr;
       } else {
-        document.getElementById('preco').innerText = "";
+        elPreco.innerText = "";
       }
 
       if (capa) {
