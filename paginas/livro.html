@@ -16,11 +16,12 @@
 
   <div class="card">
     <img id="foto" class="cover" src="" alt="Capa do livro" style="display:none;">
-    <h2 id="titulo">Carregando...</h2>
+    <h2 id="titulo">Carregando livro...</h2>
     
     <div class="info">
       <p id="isbn"></p>
       <p id="autor"></p>
+      <p id="assunto"></p>
       <p id="editora"></p>
     </div>
   </div>
@@ -32,15 +33,16 @@
     if (isbn) {
       document.getElementById('isbn').innerText = "📖 ISBN: " + isbn;
 
-      // Busca os dados atualizados no JSON do Google Books
+      // Consulta a API do Google Books usando o ISBN vindo no QR Code
       fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
         .then(res => res.json())
         .then(data => {
           if (data.totalItems > 0) {
             const book = data.items[0].volumeInfo;
             document.getElementById('titulo').innerText = "📚 " + (book.title || 'Sem título');
-            document.getElementById('autor').innerText = "👤 Autor: " + (book.authors ? book.authors.join(', ') : '-');
-            document.getElementById('editora').innerText = "🏢 Editora: " + (book.publisher || '-');
+            document.getElementById('autor').innerText = "👤 Autor: " + (book.authors ? book.authors.join(', ') : 'Não informado');
+            document.getElementById('assunto').innerText = "🎭 Assunto: " + (book.categories ? book.categories.join(', ') : 'Geral');
+            document.getElementById('editora').innerText = "🏢 Editora: " + (book.publisher || 'Não informada');
 
             if (book.imageLinks && book.imageLinks.thumbnail) {
               const imgEl = document.getElementById('foto');
@@ -48,9 +50,14 @@
               imgEl.style.display = 'inline-block';
             }
           } else {
-            document.getElementById('titulo').innerText = "Livro não encontrado";
+            document.getElementById('titulo').innerText = "Livro não encontrado.";
           }
+        })
+        .catch(() => {
+          document.getElementById('titulo').innerText = "Erro ao carregar as informações do livro.";
         });
+    } else {
+      document.getElementById('titulo').innerText = "Nenhum ISBN informado no QR Code.";
     }
   </script>
 
