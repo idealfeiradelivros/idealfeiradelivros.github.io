@@ -1,6 +1,6 @@
 [
   {
-    "id": "0001",
+    "id": "LIVRO-0001",
     "isbn": "9788535914849",
     "titulo": "1984",
     "autor": "George Orwell",
@@ -10,8 +10,38 @@
     "valor": "R$ 62,30"
   },
   {
-    "id": "2",
-    "isbn": "9788535902775",
+    "id": "LIVRO-0002",
+    "isbn": "9788576572008",
+    "titulo": "Eu, Robô",
+    "autor": "Isaac Asimov",
+    "assunto": "smear campaigns",
+    "editora": "Aleph",
+    "capa": "https://covers.openlibrary.org/b/id/8458608-M.jpg",
+    "valor": "R$ 33,20"
+  },
+  {
+    "id": "LIVRO-0003",
+    "isbn": "9788535910558",
+    "titulo": "Não encontrado",
+    "autor": "-",
+    "assunto": "-",
+    "editora": "-",
+    "capa": "",
+    "valor": "R$ 54,10"
+  },
+  {
+    "id": "LIVRO-0004",
+    "isbn": "9788535911695",
+    "titulo": "Capitães da Areia",
+    "autor": "Jorge Leal Amado de Faria",
+    "assunto": "Brazilian fiction",
+    "editora": "Companhia das Letras",
+    "capa": "https://covers.openlibrary.org/b/id/15236135-M.jpg",
+    "valor": "R$ 62,30"
+  },
+  {
+    "id": "LIVRO-0005",
+    "isbn": "9788535914856",
     "titulo": "Não encontrado",
     "autor": "-",
     "assunto": "-",
@@ -20,12 +50,12 @@
     "valor": ""
   },
   {
-    "id": "Livro1",
-    "isbn": "9788535902775",
-    "titulo": "Não encontrado",
-    "autor": "-",
-    "assunto": "-",
-    "editora": "-",
+    "id": "LIVRO-0006",
+    "isbn": "9788598078175",
+    "titulo": "Carregando…",
+    "autor": "",
+    "assunto": "",
+    "editora": "",
     "capa": "",
     "valor": ""
   }
