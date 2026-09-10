@@ -1,22 +1,16 @@
 {
   "9788535902775": {
     "titulo": "Dom Casmurro",
-    "preco": 29.90
+    "autor": "Machado de Assis",
+    "preco": 29.90,
+    "estoque": 15,
+    "imagem": "../Imagens/domcasmurro.jpg"
   },
   "9788595084742": {
     "titulo": "O Hobbit",
-    "preco": 49.90
+    "autor": "J. R. R. Tolkien",
+    "preco": 49.90,
+    "estoque": 12,
+    "imagem": "../Imagens/hobbit.jpg"
   }
-
-  "9788595084742": {
-3
-"titulo": "O Hobbit",
-4
-"autor": "J. R. R. Tolkien",
-5
-"preco": 49.90,
-6
-"estoque": 12
-7
-}
 }
