@@ -8,7 +8,8 @@
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; display: flex; justify-content: center; }
     .card { background: white; border-radius: 16px; padding: 24px; max-width: 350px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
     .cover { max-width: 160px; height: auto; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-    h2 { color: #1f4e78; margin: 0 0 12px 0; font-size: 20px; }
+    h2 { color: #1f4e78; margin: 0 0 8px 0; font-size: 20px; }
+    .preco { font-size: 22px; color: #2e7d32; font-weight: bold; margin: 8px 0 16px 0; }
     .info { text-align: left; font-size: 15px; color: #444; line-height: 1.6; margin: 12px 0; }
   </style>
 </head>
@@ -17,6 +18,7 @@
   <div class="card">
     <img id="foto" class="cover" src="" alt="Capa do livro" style="display:none;">
     <h2 id="titulo">Buscando informações...</h2>
+    <div id="preco" class="preco"></div>
     
     <div class="info">
       <p id="isbn"></p>
@@ -28,19 +30,47 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const isbn = params.get('isbn');
+    const isbnParam = params.get('isbn');
 
-    if (isbn) {
-      document.getElementById('isbn').innerText = "📖 ISBN: " + isbn;
-      buscarLivro(isbn);
+    if (isbnParam) {
+      document.getElementById('isbn').innerText = "📖 ISBN: " + isbnParam;
+      carregarDados(isbnParam);
     } else {
       document.getElementById('titulo').innerText = "Nenhum ISBN fornecido.";
     }
 
-    async function buscarLivro(code) {
-      // 1. Tenta buscar no Google Books
+    async function carregarDados(code) {
+      const isbnLimpo = String(code).replace(/[^0-9X]/gi, '');
+
+      // 1. Prioridade: Busca no seu arquivo local gerado pela planilha
       try {
-        const resGB = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${code}`);
+        const resJSON = await fetch('../dados/livros.json');
+        if (resJSON.ok) {
+          const livros = await resJSON.json();
+          const livroEncontrado = livros.find(l => {
+            const isbnJson = String(l.isbn || l.ISBN || '').replace(/[^0-9X]/gi, '');
+            return isbnJson === isbnLimpo;
+          });
+
+          if (livroEncontrado) {
+            exibirDados(
+              livroEncontrado.titulo || livroEncontrado.TITULO,
+              livroEncontrado.autor || livroEncontrado.AUTOR,
+              livroEncontrado.assunto || livroEncontrado.ASSUNTO,
+              livroEncontrado.editora || livroEncontrado.EDITORA,
+              livroEncontrado.capa || livroEncontrado.CAPA,
+              livroEncontrado.valor || livroEncontrado.VALOR
+            );
+            return;
+          }
+        }
+      } catch (e) {
+        console.log("JSON próprio não carregado, tentando APIs externas...");
+      }
+
+      // 2. Reserva: Google Books (sem preço)
+      try {
+        const resGB = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnLimpo}`);
         const dataGB = await resGB.json();
 
         if (dataGB.totalItems > 0) {
@@ -50,19 +80,20 @@
             book.authors ? book.authors.join(', ') : 'Não informado',
             book.categories ? book.categories.join(', ') : 'Geral',
             book.publisher || 'Não informada',
-            book.imageLinks ? book.imageLinks.thumbnail.replace('http://', 'https://') : ''
+            book.imageLinks ? book.imageLinks.thumbnail.replace('http://', 'https://') : '',
+            null
           );
           return;
         }
       } catch (e) {
-        console.log("Erro no Google Books, tentando Open Library...");
+        console.log("Erro no Google Books...");
       }
 
-      // 2. Se não achar no Google Books, tenta na Open Library
+      // 3. Reserva: Open Library (sem preço)
       try {
-        const resOL = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${code}&jscmd=data&format=json`);
+        const resOL = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${isbnLimpo}&jscmd=data&format=json`);
         const dataOL = await resOL.json();
-        const key = `ISBN:${code}`;
+        const key = `ISBN:${isbnLimpo}`;
 
         if (dataOL[key]) {
           const book = dataOL[key];
@@ -71,23 +102,31 @@
             book.authors ? book.authors.map(a => a.name).join(', ') : 'Não informado',
             book.subjects ? book.subjects.map(s => s.name).join(', ') : 'Geral',
             book.publishers ? book.publishers.map(p => p.name).join(', ') : 'Não informada',
-            book.cover ? book.cover.medium : ''
+            book.cover ? book.cover.medium : '',
+            null
           );
           return;
         }
       } catch (e) {
-        console.log("Erro na Open Library");
+        console.log("Erro na Open Library...");
       }
 
-      // 3. Se nenhuma base encontrar
-      document.getElementById('titulo').innerText = "Livro não encontrado nas bases de dados.";
+      document.getElementById('titulo').innerText = "Livro não encontrado.";
     }
 
-    function exibirDados(titulo, autor, assunto, editora, capa) {
+    function exibirDados(titulo, autor, assunto, editora, capa, valor) {
       document.getElementById('titulo').innerText = "📚 " + (titulo || 'Sem título');
-      document.getElementById('autor').innerText = "👤 Autor: " + autor;
-      document.getElementById('assunto').innerText = "🎭 Assunto: " + assunto;
-      document.getElementById('editora').innerText = "🏢 Editora: " + editora;
+      document.getElementById('autor').innerText = "👤 Autor: " + (autor || 'Não informado');
+      document.getElementById('assunto').innerText = "🎭 Assunto: " + (assunto || 'Geral');
+      document.getElementById('editora').innerText = "🏢 Editora: " + (editora || 'Não informada');
+
+      // Exibe o preço formatado em destaque se existir no JSON
+      if (valor !== undefined && valor !== null && valor !== "") {
+        let precoFormatado = String(valor).includes("R$") ? valor : "R$ " + valor;
+        document.getElementById('preco').innerText = precoFormatado;
+      } else {
+        document.getElementById('preco').innerText = "";
+      }
 
       if (capa) {
         const imgEl = document.getElementById('foto');
