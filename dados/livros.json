@@ -7,7 +7,7 @@
     "assunto": "futurology",
     "editora": "Companhia das Letras",
     "capa": "https://covers.openlibrary.org/b/id/8172473-M.jpg",
-    "valor": "R$ 62,30"
+    "valor": "R$ 35,50"
   },
   {
     "id": "LIVRO-0002",
@@ -52,7 +52,7 @@
   {
     "id": "LIVRO-0006",
     "isbn": "9788598078175",
-    "titulo": "Carregando…",
+    "titulo": "#ERROR!",
     "autor": "",
     "assunto": "",
     "editora": "",
