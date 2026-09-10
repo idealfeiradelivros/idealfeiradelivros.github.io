@@ -1,16 +1,32 @@
-{
-  "9788535902775": {
-    "titulo": "Dom Casmurro",
-    "autor": "Machado de Assis",
-    "preco": 29.90,
-    "estoque": 15,
-    "imagem": "../Imagens/domcasmurro.jpg"
+[
+  {
+    "id": "Livro_0001",
+    "isbn": "9788535914849",
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "assunto": "futurology",
+    "editora": "Companhia das Letras",
+    "capa": "https://covers.openlibrary.org/b/id/8172473-M.jpg",
+    "valor": "R$ 35,56"
   },
-  "9788595084742": {
-    "titulo": "O Hobbit",
-    "autor": "J. R. R. Tolkien",
-    "preco": 49.90,
-    "estoque": 12,
-    "imagem": "../Imagens/hobbit.jpg"
+  {
+    "id": "Livro1",
+    "isbn": "9788535902775",
+    "titulo": "Não encontrado",
+    "autor": "-",
+    "assunto": "-",
+    "editora": "-",
+    "capa": "",
+    "valor": ""
+  },
+  {
+    "id": "Livro1",
+    "isbn": "9788535902775",
+    "titulo": "Não encontrado",
+    "autor": "-",
+    "assunto": "-",
+    "editora": "-",
+    "capa": "",
+    "valor": ""
   }
-}
+]
