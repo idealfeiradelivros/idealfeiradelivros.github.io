@@ -46,28 +46,43 @@ h1{
 const params = new URLSearchParams(window.location.search);
 const isbn = params.get("isbn");
 
+console.log("ISBN:", isbn);
+
 fetch("../dados/livros.json")
-.then(response => response.json())
+.then(response => {
+    console.log("Status:", response.status);
+    return response.json();
+})
 .then(livros => {
+
+    console.log("Livros:", livros);
 
     const livro = livros[isbn];
 
-    if(!livro){
-        document.getElementById("titulo").innerText = "Livro não encontrado";
+    if (!livro) {
+        document.getElementById("titulo").innerText =
+            "ISBN não encontrado";
+
+        console.log("ISBN não encontrado");
         return;
     }
 
-    document.getElementById("titulo").innerText = livro.titulo;
+    document.getElementById("titulo").innerText =
+        livro.titulo;
 
     document.getElementById("preco").innerText =
         "R$ " + Number(livro.preco).toFixed(2).replace(".", ",");
 
 })
-.catch(() => {
-    document.getElementById("titulo").innerText = "Erro ao carregar dados";
+.catch(error => {
+
+    console.error(error);
+
+    document.getElementById("titulo").innerText =
+        "Erro ao carregar dados";
+
 });
 
 </script>
-
 </body>
 </html>
