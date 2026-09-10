@@ -7,44 +7,50 @@
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; display: flex; justify-content: center; }
     .card { background: white; border-radius: 16px; padding: 24px; max-width: 350px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
-    .cover { max-width: 180px; height: auto; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .cover { max-width: 160px; height: auto; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     h2 { color: #1f4e78; margin: 0 0 12px 0; font-size: 20px; }
     .info { text-align: left; font-size: 15px; color: #444; line-height: 1.6; margin: 12px 0; }
-    .price { font-size: 28px; color: #2e75b6; font-weight: bold; margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee; text-align: center; }
   </style>
 </head>
 <body>
 
   <div class="card">
     <img id="foto" class="cover" src="" alt="Capa do livro" style="display:none;">
-    <h2 id="titulo"></h2>
+    <h2 id="titulo">Carregando...</h2>
     
     <div class="info">
       <p id="isbn"></p>
       <p id="autor"></p>
-      <p id="genero"></p>
       <p id="editora"></p>
     </div>
-    
-    <div id="preco" class="price"></div>
   </div>
 
   <script>
-    // Pega as informações enviadas pela URL
     const params = new URLSearchParams(window.location.search);
-    
-    document.getElementById('isbn').innerText = "📖 ISBN: " + (params.get('isbn') || '-');
-    document.getElementById('titulo').innerText = "📚 " + (params.get('titulo') || 'Livro');
-    document.getElementById('autor').innerText = "👤 Autor: " + (params.get('autor') || '-');
-    document.getElementById('genero').innerText = "🎭 Gênero: " + (params.get('genero') || '-');
-    document.getElementById('editora').innerText = "🏢 Editora: " + (params.get('editora') || '-');
-    document.getElementById('preco').innerText = "🏷️ Preço: R$ " + (params.get('preco') || '0,00');
+    const isbn = params.get('isbn');
 
-    const imgUrl = params.get('img');
-    if (imgUrl) {
-      const imgEl = document.getElementById('foto');
-      imgEl.src = imgUrl;
-      imgEl.style.display = 'inline-block';
+    if (isbn) {
+      document.getElementById('isbn').innerText = "📖 ISBN: " + isbn;
+
+      // Busca os dados atualizados no JSON do Google Books
+      fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.totalItems > 0) {
+            const book = data.items[0].volumeInfo;
+            document.getElementById('titulo').innerText = "📚 " + (book.title || 'Sem título');
+            document.getElementById('autor').innerText = "👤 Autor: " + (book.authors ? book.authors.join(', ') : '-');
+            document.getElementById('editora').innerText = "🏢 Editora: " + (book.publisher || '-');
+
+            if (book.imageLinks && book.imageLinks.thumbnail) {
+              const imgEl = document.getElementById('foto');
+              imgEl.src = book.imageLinks.thumbnail.replace('http://', 'https://');
+              imgEl.style.display = 'inline-block';
+            }
+          } else {
+            document.getElementById('titulo').innerText = "Livro não encontrado";
+          }
+        });
     }
   </script>
 
